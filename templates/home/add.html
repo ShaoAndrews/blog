@@ -1,0 +1,80 @@
+{% extends "link.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block css %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}"/>
+{% endblock %}
+{% block navbar %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.index') }}">首页</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.about') }}">关于</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.service') }}">服务</a></li>
+    <li class="nav-item dropdown submenu active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            博客
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('home.blogs') }}">所有</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('home.new') }}">新建</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('home.manage') }}">管理</a></li>
+        </ul>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.contact') }}">联系</a></li>
+{% endblock %}
+{% block main %}
+    <section class="banner_area">
+        <div class="container">
+            <div class="banner_inner_text">
+                <h2>新建内容</h2>
+                <p>今天是{{ today }}</p>
+            </div>
+        </div>
+    </section>
+    <section class="blog_main_area p_100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-horizontal" style="width: 100%" method="post" action="{{ url_for('home.new') }}">
+                        {{ form.hidden_tag() }} {{ wtf.form_errors(form, hiddens="only") }}
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">标题</label>
+                            <div class="col-sm-10">
+                                {{ form.title(type='text', class='form-control', id='inputEmail3', placeholder='请输入标题') }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">副标题</label>
+                            <div class="col-sm-10">
+                                {{ form.subtitle(type='text', class='form-control', id='inputPassword3', placeholder='请输入副标题(可选)') }}
+                            </div>
+                        </div>
+                        <div id="editormd" class="form-control">
+                            {{ form.content(class='form-control', rows="10", style="display:none;") }}
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block js %}
+    {{ super() }}
+    <script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
+    <script type="text/javascript">
+        var testEditor;
+
+        $(function () {
+            testEditor = editormd("editormd", {
+                width: "100%",
+                height: "500px",
+                syncScrolling: "single",
+                path: "{{ url_for('static',filename='editormd/lib/') }}"
+            });
+        });
+    </script>
+{% endblock %}

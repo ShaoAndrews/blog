@@ -1,0 +1,283 @@
+{% extends "link.html" %}
+{% block css %}
+    {{ super() }}
+    {{ moment.include_jquery() }}
+    {{ moment.include_moment() }}
+    <style>
+        .u-list-inline {
+            padding-left: 0;
+            margin-bottom: 0;
+            list-style: none;
+        }
+
+        .g-ml-15 {
+            margin-left: 1.07143rem !important;
+        }
+
+        .u-link-v5 {
+            text-decoration: none;
+            transition: all .2s;
+        }
+
+        .u-link-v5:hover, .u-link-v5:focus {
+            text-decoration: none;
+        }
+
+        /* Color Aqua */
+        .g-color-aqua {
+            color: #29d6e6;
+        }
+
+        .g-color-aqua--hover:hover {
+            color: #29d6e6 !important;
+        }
+
+        /* Color Red */
+        .g-color-red {
+            color: #f00 !important;
+        }
+
+        .g-color-red--hover:hover {
+            color: #f00 !important;
+        }
+    </style>
+{% endblock %}
+
+{% block navbar %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.index') }}">首页</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.about') }}">关于</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.service') }}">服务</a></li>
+    <li class="nav-item dropdown submenu　active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            博客
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('home.blogs') }}">所有</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('home.new') }}">新建</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('home.manage') }}">管理</a></li>
+        </ul>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.contact') }}">联系</a></li>
+{% endblock %}
+
+{% block main %}
+    <!--================End Header Menu Area =================-->
+
+    <!--================Banner Area =================-->
+    <section class="banner_area">
+        <div class="container">
+            <div class="banner_inner_text">
+                <h2>Blog</h2>
+                <p>今天是{{ today }}</p>
+            </div>
+        </div>
+    </section>
+    <!--================End Banner Area =================-->
+
+    <!--================Blog Main Area =================-->
+    <section class="blog_main_area p_100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="single_blog_inner">
+                        <div class="s_blog_main">
+                            <div class="blog_img">
+                                <img class="img-fluid" src="{{ url_for('static', filename='img/blog/blog-1.jpg') }}"
+                                     alt="">
+                                <div class="blog_date">
+                                    <h4>{{ article.day }}</h4>
+                                    <h5>{{ article.month }}月, {{ article.year }}</h5>
+                                </div>
+                            </div>
+                            <div class="blog_text">
+                                <a href="#"><h4>{{ article.title }}</h4></a>
+                                <div class="blog_author">
+                                    <a href="#">By 邵文炳</a>
+                                    <a href="#">最后更新于{{ moment(article.create_time).format('LLL') }}</a>
+                                </div>
+                                <p>{{ article.content|markdown|safe }}</p>
+                            </div>
+                        </div>
+                        <div class="s_blog_social">
+                            <h3>Share</h3>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="blog_author">
+                            <div class="media">
+                                <div class="d-flex">
+                                    <img class="rounded-circle"
+                                         src="{{ url_for('static', filename='img/blog/blog-author.png') }}" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <h4>Michael Smith, <span>Author</span></h4>
+                                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est,
+                                        feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus doloructus.
+                                        Fusce eleifend purus vel eros </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog_comment">
+                            <h3>Comments (2)</h3>
+                            <div class="media">
+                                <img src="{{ url_for('static', filename='img/comment/comment-1.png') }}" alt="">
+                                <div class="d-flex">
+                                    <h4>Sophia Willams</h4>
+                                    <h5>Oct 29, 2017</h5>
+                                </div>
+                                <div class="media-body">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est,
+                                        feugiat nec ele mentum id, suscipit id nulla. Nulla sit amet luctus doloructus.
+                                        Fusce eleifend purus vel eros</p>
+                                    <a href="#">Reply</a>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <img src="{{ url_for('static', filename='img/comment/comment-2.pngv') }}" alt="">
+                                <div class="d-flex">
+                                    <h4>Gabriel Smith</h4>
+                                    <h5>Oct 29, 2017</h5>
+                                </div>
+                                <div class="media-body">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est,
+                                        feugiat nec ele mentum id, suscipit id nulla. Nulla sit amet luctus doloructus.
+                                        Fusce eleifend purus vel eros</p>
+                                    <a href="#">Reply</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog_comment_form">
+                            <h3>Leave a comment</h3>
+                            <form class="row contact_us_form" action="contact_process.php" method="post"
+                                  id="contactForm" novalidate="novalidate">
+                                <div class="form-group col-sm-6">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                           placeholder="E-mail">
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <input type="text" class="form-control" id="subject" name="subject"
+                                           placeholder="Subject">
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <textarea class="form-control" name="message" id="message" rows="1"
+                                              placeholder="Message"></textarea>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <button type="submit" value="submit" class="btn submit_btn form-control">Send
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="blog_right_sidebar">
+                        <aside class="r_widget search_widget">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                                <span class="input-group-btn">
+                                        <button class="btn btn-secondary" type="button"><i
+                                                class="fa fa-search"></i></button>
+                                    </span>
+                            </div>
+                        </aside>
+                        <aside class="r_widget categories_widget">
+                            <div class="r_w_title">
+                                <h3>文章目录</h3>
+                            </div>
+                            <div>
+                                {{ toc|safe }}
+                            </div>
+                        </aside>
+                        <aside class="r_widget insta_widget">
+                            <div class="r_w_title">
+                                <h3>Instagram</h3>
+                            </div>
+                            <ul>
+                                <li><a href="https://www.instagram.com/?hl=en">
+                                    <img class="img-fluid"
+                                         src="{{ url_for('static', filename='img/instagram/right-instagram/r-in-1.jpg') }}"
+                                         alt="">
+                                </a></li>
+                                <li><a href="https://www.instagram.com/?hl=en">
+                                    <img class="img-fluid"
+                                         src="{{ url_for('static', filename='img/instagram/right-instagram/r-in-2.jpg') }}"
+                                         alt="">
+                                </a></li>
+                                <li><a href="https://www.instagram.com/?hl=en">
+                                    <img class="img-fluid"
+                                         src="{{ url_for('static', filename='img/instagram/right-instagram/r-in-3.jpg') }}"
+                                         alt="">
+                                </a></li>
+                                <li><a href="https://www.instagram.com/?hl=en">
+                                    <img class="img-fluid"
+                                         src="{{ url_for('static', filename='img/instagram/right-instagram/r-in-4.jpg') }}"
+                                         alt="">
+                                </a></li>
+                                <li><a href="https://www.instagram.com/?hl=en">
+                                    <img class="img-fluid"
+                                         src="{{ url_for('static', filename='img/instagram/right-instagram/r-in-5.jpg') }}"
+                                         alt="">
+                                </a></li>
+                                <li><a href="https://www.instagram.com/?hl=en">
+                                    <img class="img-fluid"
+                                         src="{{ url_for('static', filename='img/instagram/right-instagram/r-in-6.jpg') }}"
+                                         alt="">
+                                </a></li>
+                            </ul>
+                        </aside>
+                        <aside class="r_widget tag_widget">
+                            <div class="r_w_title">
+                                <h3>Tags</h3>
+                            </div>
+                            <ul>
+                                <li><a href="#">branding</a></li>
+                                <li><a href="#">identity</a></li>
+                                <li><a href="#">design</a></li>
+                                <li><a href="#">inspiration</a></li>
+                                <li><a href="#">web design</a></li>
+                                <li><a href="#">video</a></li>
+                                <li><a href="#">photography</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Blog Main Area =================-->
+{% endblock %}
+{% block js %}
+    {{ super() }}
+    <script>
+        $(document).ready(function () {
+            // 如果toc为空（只有最外层ul），隐藏整个TOC并返回
+            if ($('.toc ul').children().length <= 0) {
+                $('.toc').parent().css('display', 'none');
+                return;
+            }
+
+            // 只显示1、2、3级目录列表
+            $('.toc ul li ul li ul li ul').css('display', 'none');
+            // 非默认的列表样式
+            $('.toc').find('ul').addClass('u-list-inline');
+            // 2、3级目录缩进
+            $('.toc ul li ul li').addClass('g-ml-15');
+            $('.toc ul li ul li ul li').addClass('g-ml-15');
+            // 链接颜色，鼠标悬停颜色
+            $('.toc').find('a').addClass('u-link-v5 g-color-aqua g-color-red--hover');
+        });
+    </script>
+{% endblock %}
+
+

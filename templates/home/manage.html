@@ -1,0 +1,65 @@
+{% extends "link.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block css %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}"/>
+    {{ moment.include_jquery() }}
+    {{ moment.include_moment() }}
+{% endblock %}
+{% block navbar %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.index') }}">首页</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.about') }}">关于</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.service') }}">服务</a></li>
+    <li class="nav-item dropdown submenu active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            博客
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('home.blogs') }}">所有</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('home.new') }}">新建</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('home.manage') }}">管理</a></li>
+        </ul>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('home.contact') }}">联系</a></li>
+{% endblock %}
+{% block main %}
+    <section class="banner_area">
+        <div class="container">
+            <div class="banner_inner_text">
+                <h2>新建内容</h2>
+                <p>今天是{{ today }}</p>
+            </div>
+        </div>
+    </section>
+    <section class="blog_main_area p_100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover table-responsive">
+                        <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>标题</th>
+                            <th>创建时间</th>
+                            <th>更新时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in alldata %}
+                            <tr>
+                                <td>{{ data.id }}</td>
+                                <td>{{ data.title }}</td>
+                                <td>{{ moment(data.create_time).format('LLL') }}</td>
+                                <td>{{ moment(data.update_time).format('LLL') }}</td>
+                                <td><a href="/delete?id={{ data.id }}">删除</a>|<a href="/edit?id={{ data.id }}">编辑</a>|<a href="/get?id={{ data.id }}">查看</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
